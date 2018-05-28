@@ -15,6 +15,7 @@ import { StartsComponent } from './starts/starts.component';
 
 // 路由配置
 import { Routes, RouterModule } from '@angular/router';
+import { StockService } from './stock/stock.service';
 
 
 const routerconfig: Routes = [
@@ -25,23 +26,23 @@ const routerconfig: Routes = [
 ]
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    HeaderComponent,
-    MenuComponent,
-    ContentComponent,
-    SidebarComponent,
-    FooterComponent,
-    StockManageComponent,
-    StockFormComponent,
-    DashboardComponent,
-    StartsComponent
-  ],
-  imports: [
-	BrowserModule,
-	RouterModule.forRoot(routerconfig) // 引入routerModule模块
-  ],
-  providers: [],
-  bootstrap: [AppComponent]
+	declarations: [
+		AppComponent,
+		HeaderComponent,
+		MenuComponent,
+		ContentComponent,
+		SidebarComponent,
+		FooterComponent,
+		StockManageComponent,
+		StockFormComponent,
+		DashboardComponent,
+		StartsComponent
+	],
+	imports: [
+		BrowserModule,
+		RouterModule.forRoot(routerconfig) // 引入routerModule模块
+	],
+	providers: [StockService],
+	bootstrap: [AppComponent]
 })
 export class AppModule { }
