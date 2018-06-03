@@ -13,9 +13,11 @@ import { StockFormComponent } from './stock/stock-form/stock-form.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { StartsComponent } from './starts/starts.component';
 
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 // 路由配置
 import { Routes, RouterModule } from '@angular/router';
 import { StockService } from './stock/stock.service';
+import { StockFilterPipe } from './pipe/stock-filter.pipe';
 
 
 const routerconfig: Routes = [
@@ -36,10 +38,13 @@ const routerconfig: Routes = [
 		StockManageComponent,
 		StockFormComponent,
 		DashboardComponent,
+		StockFilterPipe,
 		StartsComponent
 	],
 	imports: [
 		BrowserModule,
+		FormsModule,
+		ReactiveFormsModule,
 		RouterModule.forRoot(routerconfig) // 引入routerModule模块
 	],
 	providers: [StockService],
