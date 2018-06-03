@@ -17,6 +17,7 @@ export class StockManageComponent implements OnInit {
 
 	ngOnInit() {
 		this.stocks = this.stockService.getStocks()
+		
 		this.nameFilter.valueChanges
 		.debounceTime(500)
 		.subscribe(
