@@ -18,3 +18,5 @@ export class StockFilterPipe implements PipeTransform {
 	}
 
 }
+
+
