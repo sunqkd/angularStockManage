@@ -23,6 +23,7 @@ export class StockFormComponent implements OnInit {
 		this.router.navigateByUrl('/stock');
 	}
 	save () { // 保存
+		console.log(this.stock.rating)
 		this.router.navigateByUrl('/stock');
 	}
 

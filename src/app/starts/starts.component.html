@@ -1,1 +1,1 @@
-<i *ngFor="let item of starts" class="fa fa-star" [class.fa-star-o] = "item"></i>
+<i *ngFor="let item of starts;let i = index" class="fa fa-star" [class.fa-star-o] = "item" (click)="clickStar(i)"></i>
