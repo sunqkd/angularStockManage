@@ -4,22 +4,23 @@
     </div>
     <!-- /.box-header -->
     <!-- form start -->
-    <form class="form-horizontal">
+    <form class="form-horizontal" [formGroup]="formModel">
         <div class="box-body">
-            <div class="form-group">
+            <div class="form-group" [class.has-error]="formModel.get('stockName').touched && ( formModel.hasError('minlength','stockName') || formModel.hasError('required', 'stockName') )">
                 <label for="name" class="col-sm-2 control-label">股票名称</label>
-
                 <div class="col-sm-6">
-                    <input type="text" class="form-control" id="name" placeholder="股票名称">
+                    <input formControlName="stockName" type="text" class="form-control" id="name" placeholder="股票名称">
                 </div>
+                <span [class.hidden]="!formModel.hasError('required', 'stockName') || formModel.get('stockName').untouched ">股票名称不能为空</span>
+                <span [class.hidden]="!formModel.hasError('minlength','stockName') || formModel.get('stockName').untouched ">股票名称最小长度为3</span>
             </div>
 
-            <div class="form-group">
+            <div class="form-group"  [class.has-error]="formModel.hasError('required','stockPrice')">
                 <label for="price" class="col-sm-2 control-label">股票价格</label>
-
                 <div class="col-sm-6">
-                    <input type="number" class="form-control" id="price" placeholder="股票价格">
+                    <input formControlName="stockPrice" type="number" class="form-control" id="price" placeholder="股票价格">
                 </div>
+                <span [class.hidden]="!formModel.hasError('required','stockPrice')">股票价格必填</span>
             </div>
 
             <div class="form-group">
@@ -32,46 +33,31 @@
 
             <div class="form-group">
                 <label class="col-sm-2 control-label">股票描述</label>
-
                 <div class="col-sm-10">
-                    <textarea name="" id="" cols="30" rows="10">{{stock.desc}}</textarea>
+                    <textarea name="" id="" cols="30" rows="10" formControlName="stockdesc"></textarea>
                 </div>
             </div>
 
-            <div class="form-group">
+            <div class="form-group" [class.has-error]=" formModel.get('stockcategory').touched && formModel.hasError('cate','stockcategory')">
                 <label for=""> 股票类型 </label>
                 <div class="col-sm-offset-2 col-sm-10">
-                    <div class="row">
-                        <div class="col-sm-2">
+                    <div class="row" formArrayName="stockcategory">
+                        <div class="col-sm-2" *ngFor="let item of category;let i = index">
                             <div class="checkbox">
                                 <label>
-                                    <input type="checkbox"> IT
-                                </label>
-                            </div>
-                        </div>
-                        <div class="col-sm-2">
-                            <div class="checkbox">
-                                <label>
-                                    <input type="checkbox"> 互联网
-                                </label>
-                            </div>
-                        </div>
-                        <div class="col-sm-2">
-                            <div class="checkbox">
-                                <label>
-                                    <input type="checkbox"> 金融
+                                    <input [formControlName]="i" type="checkbox"> {{item}}
                                 </label>
                             </div>
                         </div>
                     </div>
                 </div>
-
+                <span  [class.hidden]="!formModel.hasError('cate','stockcategory')">至少要选择一个</span>
             </div>
         </div>
         <!-- /.box-body -->
         <div class="box-footer">
             <button (click)="cancel()" type="submit" class="btn btn-default">取消</button>
-            <button (click)="save()" type="submit" class="btn btn-info pull-right">保存</button>
+            <button (click)="save()" [disabled]="formModel.invalid" type="submit" class="btn btn-info pull-right">保存</button>
         </div>
         <!-- /.box-footer -->
     </form>

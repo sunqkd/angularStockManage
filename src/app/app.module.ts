@@ -44,7 +44,7 @@ const routerconfig: Routes = [
 	imports: [
 		BrowserModule,
 		FormsModule,
-		ReactiveFormsModule,
+		ReactiveFormsModule, // 响应式表单
 		RouterModule.forRoot(routerconfig) // 引入routerModule模块
 	],
 	providers: [StockService],
