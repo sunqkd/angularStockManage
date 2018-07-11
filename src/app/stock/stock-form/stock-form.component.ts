@@ -10,7 +10,7 @@ import { FormGroup, FormBuilder, Validators, FormControl, FormArray } from '@ang
 	styleUrls: ['./stock-form.component.css']
 })
 export class StockFormComponent implements OnInit {
-	stock: Stock;
+	stock: Stock = new Stock(0, "", 0, 0, "", []); // 初始值
 	category = ["IT", "互联网", "金融"];  // 股票类型
 
 	constructor(private routeInfo: ActivatedRoute, private stockService: StockService, private router: Router) {
@@ -21,21 +21,49 @@ export class StockFormComponent implements OnInit {
 	ngOnInit() {
 
 		let stockId = this.routeInfo.snapshot.params['id']
-		this.stock = this.stockService.getStock(stockId)
-		//formbuilder 初始化form表单数据结构
 		let fb = new FormBuilder()
 		this.formModel = fb.group(
 			{
-				stockName: [this.stock.name, [Validators.required, Validators.minLength(3)]], // 股票名称校验
-				stockPrice: [this.stock.price, [Validators.required]], // 股票价格
-				stockdesc: [this.stock.desc], //股票描述
+				stockName: ['', [Validators.required, Validators.minLength(3)]], // 股票名称校验
+				stockPrice: ['', [Validators.required]], // 股票价格
+				stockdesc: [''], //股票描述
 				stockcategory: fb.array([
-					new FormControl(this.stock.categories.indexOf(this.category[0]) != -1),
-					new FormControl(this.stock.categories.indexOf(this.category[1]) != -1),
-					new FormControl(this.stock.categories.indexOf(this.category[2]) != -1)
+					new FormControl(false),
+					new FormControl(false),
+					new FormControl(false)
 				], this.categolary) // 股票类型
 			}
 		)
+		this.stockService.getStock(stockId).subscribe(
+			data => {
+				this.stock = data
+				this.formModel.reset({   // form 更新
+					stockName:data.name,
+					stockPrice:data.price,
+					stockdesc:data.desc,
+					stockcategory: [
+						data.categories.indexOf(this.category[0]) != -1,
+						data.categories.indexOf(this.category[1]) != -1,
+						data.categories.indexOf(this.category[2]) != -1
+					]
+				})
+			}
+
+		)
+		//formbuilder 初始化form表单数据结构
+		// let fb = new FormBuilder()
+		// this.formModel = fb.group(
+		// 	{
+		// 		stockName: [this.stock.name, [Validators.required, Validators.minLength(3)]], // 股票名称校验
+		// 		stockPrice: [this.stock.price, [Validators.required]], // 股票价格
+		// 		stockdesc: [this.stock.desc], //股票描述
+		// 		stockcategory: fb.array([
+		// 			new FormControl(this.stock.categories.indexOf(this.category[0]) != -1),
+		// 			new FormControl(this.stock.categories.indexOf(this.category[1]) != -1),
+		// 			new FormControl(this.stock.categories.indexOf(this.category[2]) != -1)
+		// 		], this.categolary) // 股票类型
+		// 	}
+		// )
 	}
 
 	categolary(control: FormArray) {
@@ -49,7 +77,7 @@ export class StockFormComponent implements OnInit {
 		if (valid) {  // 表示验证通过
 			return null;
 		} else {
-			return {cate: true}  // 用于判断错误的名字 cate
+			return { cate: true }  // 用于判断错误的名字 cate
 		}
 
 	}

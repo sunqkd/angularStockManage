@@ -30,7 +30,7 @@
         "../node_modules/_admin-lte@3.0.0-alpha@admin-lte/dist/js/adminlte.min.js"
       ],
       "environmentSource": "environments/environment.ts",
-      "environments": {
+      "environments": { 
         "dev": "environments/environment.ts",
         "prod": "environments/environment.prod.ts"
       }

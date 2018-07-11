@@ -12,7 +12,7 @@ import { StockManageComponent } from './stock/stock-manage/stock-manage.componen
 import { StockFormComponent } from './stock/stock-form/stock-form.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { StartsComponent } from './starts/starts.component';
-
+import { HttpModule } from  '@angular/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 // 路由配置
 import { Routes, RouterModule } from '@angular/router';
@@ -44,6 +44,7 @@ const routerconfig: Routes = [
 	imports: [
 		BrowserModule,
 		FormsModule,
+		HttpModule, // 于服务器通讯
 		ReactiveFormsModule, // 响应式表单
 		RouterModule.forRoot(routerconfig) // 引入routerModule模块
 	],

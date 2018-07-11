@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { Stock, StockService } from '../stock.service';
 import { FormControl } from '@angular/forms';
 import 'rxjs/Rx';
+import { Observable } from 'rxjs';
 @Component({
 	selector: 'app-stock-manage',
 	templateUrl: './stock-manage.component.html',
@@ -10,7 +11,8 @@ import 'rxjs/Rx';
 })
 export class StockManageComponent implements OnInit {
 
-	private stocks:Array<Stock>;
+	private stocks:Observable<Stock []>;
+
 	private nameFilter:FormControl = new FormControl(); // 股票查询流操作
 	private keyWord:string;
 	constructor(public router:Router,private stockService: StockService) { }

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { environment } from '../../environments/environment';
 
 @Component({
 	selector: 'app-menu',
@@ -9,7 +10,7 @@ import { Router } from '@angular/router';
 export class MenuComponent implements OnInit {
 
 	constructor(public router:Router) { }
-
+    title = environment.appTitle;
 	menus:Array<Menu>;
 	currentMenuId:number = 1; // 当前选中 menu
 	nav (url:Menu) { // 路由跳转
